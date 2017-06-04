@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import favila.services.GenericServiceTest;
+import favila.services.TrainingServiceTest;
 import favila.services.UserServiceTest;
 import favila.utils.CheckHelperTest;
 import favila.utils.GenericResponseTest;
@@ -16,7 +17,8 @@ import favila.utils.JWTUtilsTest;
 	JWTUtilsTest.class,
 	GenericResponseTest.class,
 	UserServiceTest.class,
-	GenericServiceTest.class
+	GenericServiceTest.class,
+	TrainingServiceTest.class
 })
 public class FaVilaApplicationTests {
 

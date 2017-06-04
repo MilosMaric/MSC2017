@@ -17,7 +17,7 @@ public interface ITrainingRepository extends CrudRepository<Training, Integer>{
 	@Query("select e from Training e where e.group.id=:grpId")
 	ArrayList<Training> getTrainingsForGroup(@Param("grpId")int grpId);
 	
-	@Query("select e from Training e where e.type=" + TrainingServiceImpl.periodicTraining)
+	@Query("select e from Training e where e.type=" + TrainingServiceImpl.periodicTraining + " order by e.time asc")
 	ArrayList<Training> getPeriodicTrainings();
 	
 	@Query("select e from Training e where e.time between :from and :to")

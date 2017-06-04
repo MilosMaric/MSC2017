@@ -4,6 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -116,5 +118,28 @@ public class CheckHelperTest {
 	@Test
 	public void isValidNoSpecialChars_IfInValidFormat_ReturnsFalse() {
 		assertTrue(CheckHelper.isValidNoSpecialChars("asdtt4124wedu"));
+	}
+	
+	@Test
+	public void IsValidInterval_IfParamsAreNotInterval_ReturnsFalse() {
+		assertFalse(CheckHelper.isValidInterval(getFutureDate(), getPastDate()));
+	}
+	
+	@Test
+	public void IsValidInterval_IfParamsAreValidInterval_ReturnsTrue() {
+		assertTrue(CheckHelper.isValidInterval(getPastDate(), getFutureDate()));
+	}
+			
+	private Date getPastDate() {
+		Calendar c = Calendar.getInstance();
+		c.set(2012, 2, 2);
+		return c.getTime();
+	}
+	
+	private Date getFutureDate() {
+		Calendar c = Calendar.getInstance();
+		int y = c.get(Calendar.YEAR);
+		c.set(Calendar.YEAR, y + 1);
+		return c.getTime();
 	}
 }

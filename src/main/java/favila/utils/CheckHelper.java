@@ -1,6 +1,7 @@
 package favila.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CheckHelper {
 
@@ -37,5 +38,9 @@ public class CheckHelper {
 	
 	public static boolean isValidNoSpecialChars(String word) {
 		return isFilled(word) && word.matches(lettersAndNumbersRegex);
+	}
+
+	public static boolean isValidInterval(Date from, Date to) {		
+		return isFilled(from) && isFilled(to) && from.before(to);
 	}
 }
