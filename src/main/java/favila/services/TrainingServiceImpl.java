@@ -6,12 +6,14 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
+import org.springframework.stereotype.Service;
 
 import favila.dtos.DailyScheduleDTO;
 import favila.model.Training;
 import favila.repos.ITrainingRepository;
 import favila.utils.CheckHelper;
 
+@Service
 public class TrainingServiceImpl implements ITrainingService{
 	
 	public static final String periodicTraining = "periodic";
@@ -44,6 +46,7 @@ public class TrainingServiceImpl implements ITrainingService{
 	@Override
 	public Training add(Training entity) {
 		if(isValid(entity) && !CheckHelper.isIdValid(entity.getId())) {
+			entity.setType(individualTraining);
 			Training addedTraining = repo.save(entity);
 			if(CheckHelper.isFilled(addedTraining)) {
 				return addedTraining;
@@ -93,12 +96,6 @@ public class TrainingServiceImpl implements ITrainingService{
 	}
 	
 	@Override
-	public ArrayList<DailyScheduleDTO> getSchedule() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public ArrayList<Training> getTrainingsForPeriod(Date from, Date to) {
 		if(CheckHelper.isValidInterval(from, to)) {
 			ArrayList<Training> trainings = repo.getTrainingsForPeriod(from, to);
@@ -133,6 +130,7 @@ public class TrainingServiceImpl implements ITrainingService{
 				for (Training tr : dto.getTrainings()) {
 					for (Date day : dates) {
 						tr.setTime(day);
+						tr.setType(periodicTraining);
 						trainingsToAdd.add(tr);
 					}
 				}

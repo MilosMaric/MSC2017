@@ -3,12 +3,14 @@ package favila.services;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import favila.model.User;
 import favila.repos.IUserRepository;
 import favila.utils.CheckHelper;
 import favila.utils.JWTUtils;
 
+@Service
 public class UserServiceImpl implements IUserService{
 	
 	public static final String adminRole = "admin";
@@ -103,5 +105,17 @@ public class UserServiceImpl implements IUserService{
 		}
 		
 		return null;
+	}
+
+	@Override
+	public boolean isEmailTaken(String email) {
+		if(CheckHelper.isValidEmail(email)) {
+			User user = repo.findByEmail(email);
+			if(CheckHelper.isFilled(user)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

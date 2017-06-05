@@ -25,6 +25,9 @@ public class Training {
 	@Column(name = "training_type", nullable=false)
 	private String type;
 	
+	@Column(name = "training_canceled", nullable=false)
+	private Boolean isCanceled;
+	
 	@Column(name = "training_desc", nullable=true)
 	private String description;
 	

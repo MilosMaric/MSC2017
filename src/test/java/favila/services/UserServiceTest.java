@@ -194,4 +194,26 @@ public class UserServiceTest {
 		Mockito.when(mockedUserRepository.getGroupLeaders()).thenReturn(leaders);				
 		assertEquals(service.getGroupLeaders().size(), leaders.size());
 	}
+	
+	@Test
+	public void IsEmailTaken_IfArgumentIsNull_ReturnsFalse() {
+		assertFalse(service.isEmailTaken(null));
+	}
+	
+	@Test
+	public void IsEmailTaken_IfArgumentIsInvalidEmail_ReturnsFalse() {
+		assertFalse(service.isEmailTaken("aa@b"));
+	}
+	
+	@Test
+	public void IsEmailTaken_IfArgumentIsValidAndRepoReturnsNull_ReturnsFalse() {
+		Mockito.when(mockedUserRepository.findByEmail(Matchers.anyString())).thenReturn(null);
+		assertFalse(service.isEmailTaken("a@b.com"));
+	}
+	
+	@Test
+	public void IsEmailTaken_IfArgumentIsValidAndRepoReturnsNonNull_ReturnsTrue() {
+		Mockito.when(mockedUserRepository.findByEmail(Matchers.anyString())).thenReturn(new User());
+		assertTrue(service.isEmailTaken("a@b.com"));
+	}
 }

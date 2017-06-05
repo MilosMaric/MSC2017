@@ -8,7 +8,6 @@ import favila.model.Training;
 
 public interface ITrainingService extends IGenericService<Training>{
 	ArrayList<Training> getTrainingsForGroup(int grpId);	
-	ArrayList<DailyScheduleDTO> getSchedule();
 	ArrayList<Training> getTrainingsForPeriod(Date from, Date to);
 	ArrayList<Training> getTrainingsForPeriodAndGroup(Date from, Date to, int grpId);
 	boolean setSchedule(ArrayList<DailyScheduleDTO> schedule);
