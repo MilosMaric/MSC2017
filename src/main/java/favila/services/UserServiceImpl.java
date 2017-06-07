@@ -42,11 +42,13 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public User add(User entity) {		
-		if(isValid(entity) && !CheckHelper.isIdValid(entity.getId())) {
+		if(CheckHelper.isFilled(entity) && !CheckHelper.isIdValid(entity.getId())) {
 			entity.setType(groupLeaderRole);
-			User addedUser = repo.save(entity);
-			if(CheckHelper.isFilled(addedUser)) {
-				return addedUser;
+			if(isValid(entity)) {
+				User addedUser = repo.save(entity);
+				if(CheckHelper.isFilled(addedUser)) {
+					return addedUser;
+				}
 			}
 		}
 		return null;
@@ -54,13 +56,18 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public User update(User entity) {
-		if(isValid(entity)) {
+		if(isValid(entity) && newEmailIsNotTaken(entity)) {
 			User updatedUser = repo.save(entity);
 			if(CheckHelper.isFilled(updatedUser)) {
 				return updatedUser;
 			}
 		}
 		return null;
+	}
+
+	private boolean newEmailIsNotTaken(User data) {
+		return !CheckHelper.isFilled(repo.findByEmail(data.getEmail())) ||
+				CheckHelper.isFilled(repo.findByEmailAndId(data.getEmail(), data.getId()));
 	}
 
 	@Override

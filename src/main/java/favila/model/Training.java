@@ -96,4 +96,12 @@ public class Training {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public Boolean getIsCanceled() {
+		return isCanceled;
+	}
+
+	public void setIsCanceled(Boolean isCanceled) {
+		this.isCanceled = isCanceled;
+	}
 }

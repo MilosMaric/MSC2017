@@ -20,6 +20,7 @@ import org.mockito.MockitoAnnotations;
 import favila.dtos.DailyScheduleDTO;
 import favila.model.Group;
 import favila.model.Training;
+import favila.repos.IGroupRepository;
 import favila.repos.ITrainingRepository;
 
 public class TrainingServiceTest {
@@ -29,6 +30,9 @@ public class TrainingServiceTest {
 	
 	@Mock
 	private ITrainingRepository repo;
+	
+	@Mock
+	private IGroupRepository grpRepo;
 	
 	@Before
 	public void initMocks() {
@@ -162,8 +166,9 @@ public class TrainingServiceTest {
 	@Test
 	public void SetSchedule_IfArgumentsAreValidAndRepoSaveReturnsNull_ReturnsFalse() {
 		Mockito.when(repo.save(Matchers.anyCollection())).thenReturn(null);
+		Mockito.when(grpRepo.findOne(Matchers.anyInt())).thenReturn(new Group());
 		ArrayList<DailyScheduleDTO> schedule = new ArrayList<DailyScheduleDTO>();
-		schedule.add(new DailyScheduleDTO(DailyScheduleDTO.MONDAY, new ArrayList<Training>()));
+		schedule.add(new DailyScheduleDTO(DailyScheduleDTO.MONDAY, 14, 30, 2));
 		
 		assertFalse(service.setSchedule(schedule));
 	}
@@ -175,9 +180,10 @@ public class TrainingServiceTest {
 		trs.add(new Training());
 		
 		Mockito.when(repo.save(Matchers.anyCollection())).thenReturn(trs);
+		Mockito.when(grpRepo.findOne(Matchers.anyInt())).thenReturn(new Group());
 		ArrayList<DailyScheduleDTO> schedule = new ArrayList<DailyScheduleDTO>();
-		schedule.add(new DailyScheduleDTO(DailyScheduleDTO.MONDAY, trs));
-		schedule.add(new DailyScheduleDTO(DailyScheduleDTO.FRIDAY, trs));
+		schedule.add(new DailyScheduleDTO(DailyScheduleDTO.MONDAY, 20, 30, 2));
+		schedule.add(new DailyScheduleDTO(DailyScheduleDTO.FRIDAY, 20, 30, 2));
 		
 		assertTrue(service.setSchedule(schedule));
 	}

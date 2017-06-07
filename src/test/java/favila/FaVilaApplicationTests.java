@@ -4,6 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import favila.ctrls.GroupControllerTest;
+import favila.ctrls.TrainingControllerTest;
+import favila.ctrls.UserControllerTest;
 import favila.services.GenericServiceTest;
 import favila.services.GroupServiceTest;
 import favila.services.TrainingServiceTest;
@@ -20,7 +23,10 @@ import favila.utils.JWTUtilsTest;
 	UserServiceTest.class,
 	GenericServiceTest.class,
 	TrainingServiceTest.class,
-	GroupServiceTest.class
+	GroupServiceTest.class,
+	UserControllerTest.class,
+	GroupControllerTest.class,
+	TrainingControllerTest.class
 })
 public class FaVilaApplicationTests {
 

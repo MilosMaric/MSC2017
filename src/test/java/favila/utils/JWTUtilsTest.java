@@ -45,7 +45,7 @@ public class JWTUtilsTest {
 	
 	@Test
 	public void Unpack_IfTokenIsValid_ReturnsIdMoreThenZero() {
-		int result = JWTUtils.unpack("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIn0.mndZSeqieKl5yHgT7zJLl4QmCHOmCvgf_yj8bTxm6s0");
+		int result = JWTUtils.unpack("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.v0kQvhfUkPFhPE-iO6dvWxVD7t0iri9FBpeYpJUtjcA");
 		assertTrue(result > 0);
 	}
 }

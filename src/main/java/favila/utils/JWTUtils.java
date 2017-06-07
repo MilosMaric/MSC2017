@@ -5,7 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTUtils {
 	private static String key = "LAKSDJLAKSJalasdksjdlaskjdla";
-	public static String jwtRegex = "\\w+\\.\\w+\\.\\w+";
+	public static String jwtRegex = ".+\\..+\\..+";
 
 	public static String pack(int id) {
 		if(CheckHelper.isIdValid(id)) {

@@ -1,9 +1,5 @@
 package favila.dtos;
 
-import java.util.ArrayList;
-
-import favila.model.Training;
-
 public class DailyScheduleDTO {
 
 	public static final int SUNDAY = 1;
@@ -15,14 +11,18 @@ public class DailyScheduleDTO {
 	public static final int SATURDAY = 7;
 	
 	private int day;
-	private ArrayList<Training> trainings;
+	private int hour;
+	private int minute;
+	private int grpId;
 	
 	public DailyScheduleDTO() {}
-	
-	public DailyScheduleDTO(int day, ArrayList<Training> trainings) {
+
+	public DailyScheduleDTO(int day, int h, int m, int grpId) {
 		super();
 		this.day = day;
-		this.trainings = trainings;
+		this.hour = h;
+		this.minute = m;
+		this.grpId = grpId;
 	}
 
 	public int getDay() {
@@ -33,11 +33,27 @@ public class DailyScheduleDTO {
 		this.day = day;
 	}
 
-	public ArrayList<Training> getTrainings() {
-		return trainings;
+	public int getGrpId() {
+		return grpId;
 	}
 
-	public void setTrainings(ArrayList<Training> trainings) {
-		this.trainings = trainings;
+	public void setGrpId(int grpId) {
+		this.grpId = grpId;
+	}
+
+	public int getMinute() {
+		return minute;
+	}
+
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}
+
+	public int getHour() {
+		return hour;
+	}
+
+	public void setHour(int hour) {
+		this.hour = hour;
 	}
 }

@@ -6,10 +6,13 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import favila.dtos.DailyScheduleDTO;
+import favila.model.Group;
 import favila.model.Training;
+import favila.repos.IGroupRepository;
 import favila.repos.ITrainingRepository;
 import favila.utils.CheckHelper;
 
@@ -19,7 +22,11 @@ public class TrainingServiceImpl implements ITrainingService{
 	public static final String periodicTraining = "periodic";
 	public static final String individualTraining = "individual";
 	
+	@Autowired
 	private ITrainingRepository repo;
+	
+	@Autowired
+	private IGroupRepository grpRepo;
 	
 	@Override
 	public Training getById(int id) {
@@ -123,16 +130,21 @@ public class TrainingServiceImpl implements ITrainingService{
 	public boolean setSchedule(ArrayList<DailyScheduleDTO> schedule) {
 		ArrayList<Training> trainingsToAdd = new ArrayList<Training>();
 		ArrayList<Date> dates = new ArrayList<Date>();
+		Group group;
+		Training tr;
 		
 		if(CheckHelper.isFilled(schedule)) {
 			for (DailyScheduleDTO dto : schedule) {
 				dates = getDays(dto.getDay());
-				for (Training tr : dto.getTrainings()) {
-					for (Date day : dates) {
-						tr.setTime(day);
-						tr.setType(periodicTraining);
-						trainingsToAdd.add(tr);
-					}
+				group = grpRepo.findOne(dto.getGrpId());
+				for (Date day : dates) {
+					tr = new Training();
+					tr.setTime(setTimeToDay(day, dto.getHour(), dto.getMinute()));
+					tr.setType(periodicTraining);
+					tr.setDescription("Trening napravljen po rasporedu napravljenom od strane administracije KUD-a.");
+					tr.setIsCanceled(false);						
+					tr.setGroup(group);
+					trainingsToAdd.add(tr);
 				}
 			}
 			
@@ -145,6 +157,16 @@ public class TrainingServiceImpl implements ITrainingService{
 		}
 		
 		return false; 
+	}
+
+	private Date setTimeToDay(Date day, int h, int m) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(day);
+		c.set(Calendar.HOUR_OF_DAY, h);
+		c.set(Calendar.MINUTE, m);
+		c.set(Calendar.SECOND, 0);
+		
+		return c.getTime();
 	}
 
 	private ArrayList<Date> getDays(int day) {
