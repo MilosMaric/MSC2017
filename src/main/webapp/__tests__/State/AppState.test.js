@@ -274,6 +274,33 @@ describe('AppState', () => {
     })
   })
 
+  describe('profileError should return', () => {
+    test('non empty string if editUser is null', () => {
+      state.editUser = null;
+      expect(state.profileError).not.toBe('');
+    })
+
+    test('non empty string if editUser is undefined', () => {
+      state.editUser = undefined;
+      expect(state.profileError).not.toBe('');
+    })
+
+    test('non empty string if editUser is an empty object', () => {
+      state.editUser = {};
+      expect(state.profileError).not.toBe('');
+    })
+
+    test('non empty string if editUser is invalid', () => {
+      state.editUser = { firstname:'first_name', lastname:'last_name', email: 'email@gmail.c'};
+      expect(state.profileError).not.toBe('');
+    })
+
+    test('empty string if editUser has both password and email fields valid', () => {
+      state.editUser = { firstname:'firstName', lastname:'lastName', email: 'email@gmail.com'};
+      expect(state.profileError).toBe('');
+    })
+  });
+
   describe('isGroupNameValid should return', () => {
     test('false if editGroup is null', () => {
       state.editGroup = null;
@@ -349,4 +376,31 @@ describe('AppState', () => {
       expect(state.isMyGroupFormValid).toBe(true);
     })
   })
+
+  describe('groupError should return', () => {
+    test('non empty string if editGroup is null', () => {
+      state.editGroup = null;
+      expect(state.groupError).not.toBe('');
+    })
+
+    test('non empty string if editGroup is undefined', () => {
+      state.editGroup = undefined;
+      expect(state.groupError).not.toBe('');
+    })
+
+    test('non empty string if editGroup is an empty object', () => {
+      state.editGroup = {};
+      expect(state.groupError).not.toBe('');
+    })
+
+    test('non empty string if editGroup is invalid', () => {
+      state.editGroup = { name:'_name', description: 'random description'};
+      expect(state.groupError).not.toBe('');
+    })
+
+    test('empty string if editGroup has both password and email fields valid', () => {
+      state.editGroup = { name:'Name', description: 'random description'};
+      expect(state.groupError).toBe('');
+    })
+  });
 });

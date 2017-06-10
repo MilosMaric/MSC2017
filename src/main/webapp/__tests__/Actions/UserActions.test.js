@@ -2,6 +2,7 @@ import actions from '../../Actions/UserActions';
 import AppActions from '../../Actions/AppActions';
 import ApiActions from '../../Actions/ApiActions';
 import LoginState from '../../State/LoginState';
+import UserState from '../../State/UserState';
 import AppState from '../../State/AppState';
 
 const mockedCallback = () => {};
@@ -34,5 +35,17 @@ describe('UserActions', () => {
     AppState.editUser = editData;
     actions.update();
     expect(ApiActions.put).toBeCalledWith('api/user', editData, mockedCallback);
+  })
+
+  test('getLeaders should call get method from ApiActions with \'api/user/leaders\' as first and returned method from AppActions.getSc method as second argument', () => {
+    actions.getLeaders();
+    expect(ApiActions.get).toBeCalledWith('api/user/leaders', mockedCallback);
+  })
+
+  test('add should call post method from ApiActions with \'api/user\' as first, UserState newUser as second and returned method from AppActions.getSc method as third argument', () => {
+    let userData = { firstname: 'fname', email: 'name123@yahoo.com', lastname: 'lname'};
+    UserState.newUser = userData;
+    actions.add();
+    expect(ApiActions.post).toBeCalledWith('api/user', userData, mockedCallback);
   })
 })

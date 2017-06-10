@@ -7,12 +7,27 @@ import MyGroupPage from "../Components/MyGroupPage";
 import ProfilePage from "../Components/ProfilePage";
 import UsersPage from "../Components/UsersPage";
 import UserActions from "./../Actions/UserActions";
+import AppState from '../State/AppState';
+import { UIModes } from '../Constants/AppConstants';
 
-const getLoggedUser = function() {
+const getLoggedUser = () => {
+  resetMode();
   if(localStorage.jwt) {
     UserActions.getLogged();
   }
 };
+
+const getUsers = () => {
+  resetMode();
+  if(localStorage.jwt) {
+    UserActions.getLeaders();
+    UserActions.getLogged();
+  }
+}
+
+const resetMode = () => {
+  AppState.mode = UIModes.VIEW;
+}
 
 const Routes = React.createClass({
  render: function() {
@@ -23,7 +38,7 @@ const Routes = React.createClass({
         <Route path="/login" component={LoginPage}/>
         <Route path="/myGroup" component={MyGroupPage} onEnter={getLoggedUser}/>
         <Route path="/profile" component={ProfilePage} onEnter={getLoggedUser}/>
-        <Route path="/users" component={UsersPage} onEnter={getLoggedUser}/>
+        <Route path="/users" component={UsersPage} onEnter={getUsers}/>
         <Redirect from="*" to="/"/>
       </Route>
     </Router>

@@ -4,7 +4,8 @@
   "main": "index.html",
   "scripts": {
     "wp": "webpack --progress --colors --watch",
-    "tdd": "jest --colors --watchAll "
+    "tdd": "jest --colors --watchAll",
+    "test": "jest --colors --coverage"
   },
   "author": "Milos Maric",
   "dependencies": {

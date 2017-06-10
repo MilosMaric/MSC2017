@@ -10,12 +10,10 @@ const AppActions = {
 
   getSC: (sc) => {
     return (data) => {
-      if(data) {
-        if(data.operationSuccedded) {
-          if(sc) { sc(data.payload); }
-        } else {
-          AppActions.error(data.errorMessage);
-        }
+      if(data.operationSuccedded) {
+        if(sc) { sc(data.payload); }
+      } else {
+        AppActions.error(data.errorMessage);
       }
     };
   }

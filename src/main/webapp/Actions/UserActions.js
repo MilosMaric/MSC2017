@@ -1,6 +1,7 @@
 import { browserHistory } from 'react-router'
 import AppState from '../State/AppState';
 import LoginState from '../State/LoginState';
+import UserState from '../State/UserState';
 import ApiActions from './ApiActions';
 import AppActions from './AppActions';
 import { UIModes } from '../Constants/AppConstants'
@@ -14,6 +15,13 @@ const UserActions = {
       AppState.loggedUser = payload;
     }
     ApiActions.get(ctrlUrl + "/getLoggedUser", AppActions.getSC(sClbck));
+  },
+
+  getLeaders: () => {
+    let sClbck = (payload) => {
+      UserState.data = payload;
+    }
+    ApiActions.get(ctrlUrl + "/leaders", AppActions.getSC(sClbck));
   },
 
   login: () => {
@@ -31,6 +39,16 @@ const UserActions = {
     }
 
     ApiActions.put(ctrlUrl, AppState.editUser, AppActions.getSC(sClbck));
+  },
+
+  add: () => {
+    let sClbck = (payload) => {
+      UserActions.getLeaders();
+      AppState.mode = UIModes.VIEW;
+      UserState.newUser = {};
+    }
+
+    ApiActions.post(ctrlUrl, UserState.newUser, AppActions.getSC(sClbck));
   },
 
   logout: () => {

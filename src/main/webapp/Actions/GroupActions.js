@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router'
 import AppState from '../State/AppState';
-import LoginState from '../State/LoginState';
+import GroupState from '../State/GroupState';
 import ApiActions from './ApiActions';
 import AppActions from './AppActions';
 import { UIModes } from '../Constants/AppConstants'
@@ -17,6 +17,14 @@ const UserActions = {
 
     ApiActions.put(ctrlUrl, AppState.editGroup, AppActions.getSC(sClbck));
   },
+
+  getAll: () => {
+    let sClbck = (payload) => {
+      GroupState.data = payload;
+    }
+
+    ApiActions.get(ctrlUrl, AppActions.getSC(sClbck));
+  }
 }
 
 export default UserActions;

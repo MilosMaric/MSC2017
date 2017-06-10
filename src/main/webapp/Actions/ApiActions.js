@@ -1,5 +1,5 @@
 import $ from "jquery";
-import UserActions from './UserActions';
+import AppActions from './AppActions';
 
 const ApiActions = {
   get : function(url, successCallback, errorCallback) {
@@ -95,7 +95,7 @@ const fileUpload = function(url, successCallback, errorCallback, data) {
 }
 
 const genericErrorCallback = function(xhr) {
-  UserActions.error("Server error.");
+  AppActions.error("Server error.");
 }
 
 export default ApiActions;

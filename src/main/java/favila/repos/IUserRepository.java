@@ -18,6 +18,6 @@ public interface IUserRepository extends CrudRepository<User, Integer>{
 	
 	User findByEmail(String email);
 
-	@Query("select e from User e where e.type=" + UserServiceImpl.groupLeaderRole)
+	@Query("select e from User e where e.type='" + UserServiceImpl.groupLeaderRole + "'")
 	ArrayList<User> getGroupLeaders();
 }
