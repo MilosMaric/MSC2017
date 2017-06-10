@@ -54,6 +54,10 @@ tbody {
 		&:hover {
 	    color: $rasinBlack;
 	    background-color: $sunny;
+			label{
+				color: $rasinBlack;
+		    background-color: $sunny;
+			}
   	}
 	}
 }

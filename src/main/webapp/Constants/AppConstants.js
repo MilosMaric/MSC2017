@@ -12,4 +12,10 @@ const MenuItems = {
               ],
 }
 
-export { UserRoles, MenuItems }
+const UIModes = {
+  VIEW: 'view_ui_mode',
+  EDIT: 'edit_ui_mode',
+  ADD: 'add_ui_mode'
+}
+
+export { UserRoles, MenuItems, UIModes }

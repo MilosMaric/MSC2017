@@ -6,8 +6,8 @@ import java.util.Date;
 public class CheckHelper {
 
 	public static String emailRegex = "\\w+\\@[A-Za-z]+\\.[A-Za-z]{2,4}";
-	public static String lettersRegex = "[A-Za-z]+";	
-	public static String lettersAndNumbersRegex = "[A-Za-z0-9]+";
+	public static String lettersRegex = "[A-Za-zčćžđšŽĐŠĆČ]+";	
+	public static String lettersAndNumbersRegex = "[A-Za-z0-9ŽĐŠĆČćčžđš]+";
 	
 	@SuppressWarnings("rawtypes")
 	public static Boolean isFilled(Object object) {

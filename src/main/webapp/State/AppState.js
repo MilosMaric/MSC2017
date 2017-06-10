@@ -1,5 +1,6 @@
 import { observable, computed } from 'mobx';
-import { UserRoles, MenuItems } from '../Constants/AppConstants'
+import { UserRoles, MenuItems, UIModes } from '../Constants/AppConstants'
+import RegExpValidation from '../Utils/RegExpValidation';
 
 let state = observable({
   loggedUser: undefined,
@@ -16,7 +17,33 @@ let state = observable({
     }
     return menuItems;
   },
-  error: {}
+
+  error: {},
+
+  mode: UIModes.VIEW,
+  get isViewMode() { return this.mode && this.mode === UIModes.VIEW ? true : false; },
+  get isEditMode() { return this.mode && this.mode === UIModes.EDIT ? true : false; },
+  get isAddMode() { return this.mode && this.mode === UIModes.ADD ? true : false; },
+
+  editUser: {},
+  get isEmailValid() { return this.editUser ? RegExpValidation.isEmail(this.editUser.email): false; },
+  get isFirstnameValid() { return this.editUser ? RegExpValidation.isLettersSr(this.editUser.firstname): false; },
+  get isLastnameValid() { return this.editUser ? RegExpValidation.isLettersSr(this.editUser.lastname): false; },
+  get isProfileFormValid() { return this.isEmailValid && this.isLastnameValid && this.isFirstnameValid; },
+  get profileError() {
+    let error = '';
+    if(!this.isEmailValid) {
+        error += 'Email nije u dobrom formatu. ';
+    }
+    if(!this.isFirstnameValid) {
+        error += 'Ime mora biti popunjeno i sadržati samo slova. ';
+    }
+
+    if(!this.isLastnameValid) {
+        error += 'Prezime mora biti popunjeno i sadržati samo slova. ';
+    }
+    return error;
+  }
 });
 
 window.state = state;

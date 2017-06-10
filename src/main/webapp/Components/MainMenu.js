@@ -6,7 +6,6 @@ import UserActions from '../Actions/UserActions';
 
 const MainMenu = observer(() => {
   let isUserLogged = AppState.anyLogged;
-  console.log('Is logged: ', isUserLogged);
   return (
     <div className='MainMenu'>
       {AppState.menuItems.map((item, index) => {
