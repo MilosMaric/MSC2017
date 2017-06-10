@@ -3,12 +3,17 @@ const UserRoles = {
   GROUP_LEADER_ROLE: "groupLeader"
 }
 
+const GroupTypes = {
+  DANCING: "dancing",
+  ORCHESTRA: "orchestra"
+}
+
 const MenuItems = {
       anonymous: [ { to: "/trainings", text: "Probe"}],
       leader: [ { to: "/myGroup", text: "Moja grupa"}],
       admin: [
                 { to: "/users", text: "Rukovodioci"},
-                { to: "/groups", text: "Grupe"}
+                // { to: "/groups", text: "Grupe"}
               ],
 }
 
@@ -18,4 +23,4 @@ const UIModes = {
   ADD: 'add_ui_mode'
 }
 
-export { UserRoles, MenuItems, UIModes }
+export { UserRoles, MenuItems, UIModes, GroupTypes }

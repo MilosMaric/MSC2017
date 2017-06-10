@@ -43,6 +43,17 @@ let state = observable({
         error += 'Prezime mora biti popunjeno i sadržati samo slova. ';
     }
     return error;
+  },
+
+  editGroup: {},
+  get isGroupNameValid() { return this.editGroup ? RegExpValidation.isLettersSr(this.editGroup.name): false; },
+  get isDescriptionValid() { return this.editGroup ? RegExpValidation.isLettersSr(this.editGroup.description): false; },
+  get isMyGroupFormValid() { return this.isGroupNameValid && this.isDescriptionValid; },
+  get groupError() {
+    if(!this.isMyGroupFormValid) {
+        return 'Naziv i opis moraju biti popunjeni i sadržati samo slova.';
+    }
+    return '';
   }
 });
 

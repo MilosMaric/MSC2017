@@ -29,6 +29,7 @@ const UserActions = {
       AppState.mode = UIModes.VIEW;
       AppState.loggedUser = Cloner.clone(AppState.editUser);
     }
+
     ApiActions.put(ctrlUrl, AppState.editUser, AppActions.getSC(sClbck));
   },
 

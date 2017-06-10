@@ -273,4 +273,80 @@ describe('AppState', () => {
       expect(state.isProfileFormValid).toBe(true);
     })
   })
+
+  describe('isGroupNameValid should return', () => {
+    test('false if editGroup is null', () => {
+      state.editGroup = null;
+      expect(state.isGroupNameValid).toBe(false);
+    })
+
+    test('false if editGroup is undefined', () => {
+      state.editGroup = undefined;
+      expect(state.isGroupNameValid).toBe(false);
+    })
+
+    test('false if editGroup does not have an name field', () => {
+      state.editGroup = { description: 'random description' };
+      expect(state.isGroupNameValid).toBe(false);
+    })
+
+    test('false if editGroup has badly formatted name field value', () => {
+      state.editGroup = { name: 'special_characters*all123-around' };
+      expect(state.isGroupNameValid).toBe(false);
+    })
+
+    test('true if editGroup has correctly formatted name field value', () => {
+      state.editGroup = { name: 'Randomname' };
+      expect(state.isGroupNameValid).toBe(true);
+    })
+  })
+
+  describe('isDescriptionValid should return', () => {
+    test('false if editGroup is null', () => {
+      state.editGroup = null;
+      expect(state.isDescriptionValid).toBe(false);
+    })
+
+    test('false if editGroup is undefined', () => {
+      state.editGroup = undefined;
+      expect(state.isDescriptionValid).toBe(false);
+    })
+
+    test('false if editGroup does not have an description field', () => {
+      state.editGroup = { name: 'groupName' };
+      expect(state.isDescriptionValid).toBe(false);
+    })
+
+    test('false if editGroup has badly formatted description field value', () => {
+      state.editGroup = { description: 'special_characters*all123-around' };
+      expect(state.isDescriptionValid).toBe(false);
+    })
+
+    test('true if editGroup has correctly formatted description field value', () => {
+      state.editGroup = { description: 'Randomname' };
+      expect(state.isDescriptionValid).toBe(true);
+    })
+  })
+
+  describe('isMyGroupFormValid should return', () => {
+    test('false if editGroup is null', () => {
+      state.editGroup = null;
+      expect(state.isMyGroupFormValid).toBe(false);
+    })
+
+    test('false if editGroup is undefined', () => {
+      state.editGroup = undefined;
+      expect(state.isMyGroupFormValid).toBe(false);
+    })
+
+    test('false if editGroup is an empty object', () => {
+      state.editGroup = {};
+      expect(state.isMyGroupFormValid).toBe(false);
+    })
+
+    test('true if editGroup has both fields valid', () => {
+      state.editGroup = { name: 'name', description: 'some description'};
+      expect(state.isMyGroupFormValid).toBe(true);
+    })
+  })
 });
