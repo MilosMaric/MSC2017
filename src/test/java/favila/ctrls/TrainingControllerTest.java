@@ -137,14 +137,18 @@ public class TrainingControllerTest {
 	
 	@Test
 	public void CancelTraining_IfServiceUpdateFailed_ReturnsFailure() {
-		Mockito.when(service.getById(Matchers.anyInt())).thenReturn(new Training());
+		Training t = new Training();
+		t.setIsCanceled(false);
+		Mockito.when(service.getById(Matchers.anyInt())).thenReturn(t);
 		Mockito.when(service.update(Matchers.any(Training.class))).thenReturn(null);
 		assertFalse(ctrl.cancelTraining(2).isOperationSuccedded());
 	}
 	
 	@Test
 	public void CancelTraining_IfServiceUpdateSucceded_ReturnsSuccess() {
-		Mockito.when(service.getById(Matchers.anyInt())).thenReturn(new Training());
+		Training t = new Training();
+		t.setIsCanceled(false);
+		Mockito.when(service.getById(Matchers.anyInt())).thenReturn(t);
 		Mockito.when(service.update(Matchers.any(Training.class))).thenReturn(new Training());
 		assertTrue(ctrl.cancelTraining(2).isOperationSuccedded());
 	}

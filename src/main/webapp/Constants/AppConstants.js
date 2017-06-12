@@ -8,6 +8,20 @@ const GroupTypes = {
   ORCHESTRA: "orchestra"
 }
 
+const TrainingTypes = {
+  PERIODIC: "periodic_training",
+  INDIVIDUAL: "individual_training"
+}
+
+const Days = {
+  MONDAY: 1,
+  TUESDAY: 2,
+  WEDNESDAY: 3,
+  THURSDAY: 4,
+  FRIDAY: 5,
+  ALL: -1,
+}
+
 const MenuItems = {
       anonymous: [ { to: "/trainings", text: "Probe"}],
       leader: [ { to: "/myGroup", text: "Moja grupa"}],
@@ -23,4 +37,4 @@ const UIModes = {
   ADD: 'add_ui_mode'
 }
 
-export { UserRoles, MenuItems, UIModes, GroupTypes }
+export { UserRoles, MenuItems, UIModes, GroupTypes, TrainingTypes, Days }

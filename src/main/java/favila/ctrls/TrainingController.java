@@ -102,14 +102,14 @@ public class TrainingController {
 		return retVal;
 	}
 	
-	@RequestMapping(value = "{id}/cancel", method=RequestMethod.PUT)
+	@RequestMapping(value = "{id}/toggleStatus", method=RequestMethod.PUT)
 	public GenericResponse<Object> cancelTraining(@PathVariable int id) {
 		GenericResponse<Object> retVal = new GenericResponse<Object>();
 
 		if(CheckHelper.isIdValid(id)) {
 			Training t = service.getById(id);
 			if(CheckHelper.isFilled(t)) {
-				t.setIsCanceled(true);
+				t.setIsCanceled(!t.getIsCanceled());
 				Training updated = service.update(t);
 				if(CheckHelper.isFilled(updated)) {
 					retVal.success(null);

@@ -175,11 +175,13 @@ public class TrainingServiceImpl implements ITrainingService{
 		int yodaDay = getDayConstantForYoda(transformedDay);
 		Calendar c = Calendar.getInstance();
 		int currentYear = c.get(Calendar.YEAR);
+		int currentMonth = c.get(Calendar.MONTH);
+		int currentDay = c.get(Calendar.DAY_OF_MONTH);
 		
-		c.set(currentYear, 8, 1);		
+		c.set(currentYear, currentMonth, currentDay);
 		Date start = c.getTime();
 		
-		c.set(currentYear + 1, 5, 30);		
+		c.add(Calendar.MONTH, 10);
 		Date end = c.getTime();
 		
 		DateTime dtStart = new DateTime(start.getTime());
