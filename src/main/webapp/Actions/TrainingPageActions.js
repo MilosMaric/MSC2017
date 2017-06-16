@@ -7,7 +7,6 @@ import AppActions from './AppActions';
 import {Days} from '../Constants/AppConstants';
 
 export default {
-
   handleCancelTraining: (item) => {
     TrainingActions.toggleStatus(item);
   },
@@ -26,12 +25,3 @@ export default {
     TrainingState.day = Days[val];
   },
 };
-
-// const genericHandle = (e, fieldName) => {
-//   let val = e.target.value;
-//   if(!val || (typeof val === 'string' && !val.trim())) {
-//     delete UserState.newUser[fieldName];
-//   } else {
-//     UserState.newUser[fieldName] = val.trim();
-//   }
-// };

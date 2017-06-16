@@ -7,22 +7,26 @@ import Cloner from '../Utils/Cloner'
 
 const ctrlUrl = 'api/training';
 
-const UserActions = {
+const TrainingActions = {
+  itemToToggle : {},
   getAll: () => {
-    let sClbck = (payload) => {
-      TrainingState.data = payload;
-    }
-
-    ApiActions.get(ctrlUrl, AppActions.getSC(sClbck));
+    ApiActions.get(ctrlUrl, AppActions.getSC(getAllSC));
   },
 
   toggleStatus: (item) => {
-    let sClbck = (payload) => {
-      item.isCanceled = !item.isCanceled;
-    }
-
-    ApiActions.put(ctrlUrl + '/' + item.id + '/toggleStatus', {}, AppActions.getSC(sClbck));
-  }
+    TrainingActions.itemToToggle = item;
+    ApiActions.put(ctrlUrl + '/' + item.id + '/toggleStatus', {}, AppActions.getSC(toggleStatusSC));
+  },
 }
 
-export default UserActions;
+export default TrainingActions;
+
+let getAllSC = (payload) => {
+    TrainingState.data = payload;
+};
+
+let toggleStatusSC = (payload) => {
+  TrainingActions.itemToToggle.isCanceled = !TrainingActions.itemToToggle.isCanceled;
+};
+
+export { getAllSC, toggleStatusSC }

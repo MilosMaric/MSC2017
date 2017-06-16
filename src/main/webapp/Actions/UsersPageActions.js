@@ -7,7 +7,6 @@ import GroupActions from './GroupActions';
 import AppActions from './AppActions';
 
 export default {
-
   initAdd: () => {
     GroupActions.getAll();
     AppState.mode = UIModes.ADD;

@@ -8,23 +8,25 @@ import Cloner from '../Utils/Cloner'
 
 const ctrlUrl = 'api/group';
 
-const UserActions = {
+const GroupActions = {
   update: () => {
-    let sClbck = (payload) => {
-      AppState.mode = UIModes.VIEW;
-      AppState.loggedUser.group = Cloner.clone(AppState.editGroup);
-    }
-
-    ApiActions.put(ctrlUrl, AppState.editGroup, AppActions.getSC(sClbck));
+    ApiActions.put(ctrlUrl, AppState.editGroup, AppActions.getSC(updateSC));
   },
 
   getAll: () => {
-    let sClbck = (payload) => {
-      GroupState.data = payload;
-    }
-
-    ApiActions.get(ctrlUrl, AppActions.getSC(sClbck));
+    ApiActions.get(ctrlUrl, AppActions.getSC(getAllSC));
   }
 }
 
-export default UserActions;
+export default GroupActions;
+
+let getAllSC = (payload) => {
+  GroupState.data = payload;
+}
+
+let updateSC = () => {
+  AppState.mode = UIModes.VIEW;
+  AppState.loggedUser.group = Cloner.clone(AppState.editGroup);
+}
+
+export { getAllSC, updateSC }

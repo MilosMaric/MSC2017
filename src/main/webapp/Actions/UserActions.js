@@ -11,44 +11,23 @@ const ctrlUrl = 'api/user';
 
 const UserActions = {
   getLogged: () => {
-    let sClbck = (payload) => {
-      AppState.loggedUser = payload;
-    }
-    ApiActions.get(ctrlUrl + "/getLoggedUser", AppActions.getSC(sClbck));
+    ApiActions.get(ctrlUrl + "/getLoggedUser", AppActions.getSC(getLoggedSC));
   },
 
   getLeaders: () => {
-    let sClbck = (payload) => {
-      UserState.data = payload;
-    }
-    ApiActions.get(ctrlUrl + "/leaders", AppActions.getSC(sClbck));
+    ApiActions.get(ctrlUrl + "/leaders", AppActions.getSC(getLeadersSC));
   },
 
   login: () => {
-    let sClbck = (payload) => {
-      localStorage.jwt = payload;
-      browserHistory.push("/profile");
-    }
-    ApiActions.post(ctrlUrl + "/login", LoginState.data, AppActions.getSC(sClbck));
+    ApiActions.post(ctrlUrl + "/login", LoginState.data, AppActions.getSC(loginSC));
   },
 
   update: () => {
-    let sClbck = (payload) => {
-      AppState.mode = UIModes.VIEW;
-      AppState.loggedUser = Cloner.clone(AppState.editUser);
-    }
-
-    ApiActions.put(ctrlUrl, AppState.editUser, AppActions.getSC(sClbck));
+    ApiActions.put(ctrlUrl, AppState.editUser, AppActions.getSC(updateSC));
   },
 
   add: () => {
-    let sClbck = (payload) => {
-      UserActions.getLeaders();
-      AppState.mode = UIModes.VIEW;
-      UserState.newUser = {};
-    }
-
-    ApiActions.post(ctrlUrl, UserState.newUser, AppActions.getSC(sClbck));
+    ApiActions.post(ctrlUrl, UserState.newUser, AppActions.getSC(addSC));
   },
 
   logout: () => {
@@ -58,3 +37,29 @@ const UserActions = {
 }
 
 export default UserActions;
+
+let getLoggedSC = (payload) => {
+  AppState.loggedUser = payload;
+}
+
+let getLeadersSC = (payload) => {
+  UserState.data = payload;
+}
+
+let loginSC = (payload) => {
+  localStorage.setItem('jwt', payload);
+  browserHistory.push("/profile");
+}
+
+let updateSC = (payload) => {
+  AppState.mode = UIModes.VIEW;
+  AppState.loggedUser = Cloner.clone(AppState.editUser);
+}
+
+let addSC = (payload) => {
+  UserActions.getLeaders();
+  AppState.mode = UIModes.VIEW;
+  UserState.newUser = {};
+}
+
+export { getLoggedSC, getLeadersSC, loginSC, updateSC, addSC };
