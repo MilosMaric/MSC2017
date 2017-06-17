@@ -14,10 +14,10 @@ import favila.services.TrainingServiceImpl;
 @Repository
 public interface ITrainingRepository extends CrudRepository<Training, Integer>{
 
-	@Query("select e from Training e where e.group.id=:grpId order by e.time asc")
+	@Query("select e from Training e where e.group.id=:grpId order by e.time")
 	ArrayList<Training> getTrainingsForGroup(@Param("grpId")int grpId);
 	
-	@Query("select e from Training e where e.type=" + TrainingServiceImpl.periodicTraining + " order by e.time asc")
+	@Query("select e from Training e where e.type=" + TrainingServiceImpl.periodicTraining + " order by e.time")
 	ArrayList<Training> getPeriodicTrainings();
 	
 	@Query("select e from Training e where e.time between :from and :to order by e.time asc")

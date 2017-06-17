@@ -2,6 +2,8 @@ package favila.services;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import org.joda.time.DateTime;
@@ -44,7 +46,7 @@ public class TrainingServiceImpl implements ITrainingService{
 	public ArrayList<Training> getAll() {
 		ArrayList<Training> trainings = (ArrayList<Training>) repo.findAll();
 		if(CheckHelper.isFilled(trainings)) {
-			return trainings;
+			return sortByDate(trainings);
 		}
 		
 		return null;
@@ -95,7 +97,7 @@ public class TrainingServiceImpl implements ITrainingService{
 		if(CheckHelper.isIdValid(grpId)) {
 			ArrayList<Training> trainings = repo.getTrainingsForGroup(grpId);
 			if(CheckHelper.isFilled(trainings)) {
-				return trainings;
+				return sortByDate(trainings);
 			}
 		}
 		
@@ -107,7 +109,7 @@ public class TrainingServiceImpl implements ITrainingService{
 		if(CheckHelper.isValidInterval(from, to)) {
 			ArrayList<Training> trainings = repo.getTrainingsForPeriod(from, to);
 			if(CheckHelper.isFilled(trainings)) {
-				return trainings;
+				return sortByDate(trainings);
 			}
 		}
 		
@@ -119,7 +121,7 @@ public class TrainingServiceImpl implements ITrainingService{
 		if(CheckHelper.isValidInterval(from, to) && CheckHelper.isIdValid(grpId)) {
 			ArrayList<Training> trainings = repo.getGroupTrainingsForPeriod(grpId, from, to);
 			if(CheckHelper.isFilled(trainings)) {
-				return trainings;
+				return sortByDate(trainings);
 			}
 		}
 		
@@ -209,5 +211,19 @@ public class TrainingServiceImpl implements ITrainingService{
 			case 6: return DateTimeConstants.SATURDAY;
 			default: return DateTimeConstants.SUNDAY;
 		}
+	}
+	
+	private ArrayList<Training> sortByDate(ArrayList<Training> trainings) {
+		if(CheckHelper.isFilled(trainings)) {
+			Collections.sort(trainings, new Comparator<Training>() {
+				@Override
+				public int compare(Training o1, Training o2) {
+					long result = o1.getTime().getTime() - o2.getTime().getTime();
+					return result > 0 ? 1 : -1;
+				}
+			});
+		}
+		
+		return trainings;
 	}
 }
